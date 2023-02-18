@@ -27,4 +27,5 @@ class AuthController extends Controller
         return redirect()->back()->with(['error' => 'فشل في تسجيل الدخول']);
 
     }
+
 }

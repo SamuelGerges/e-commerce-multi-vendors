@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
-class AdminsTableSeeder extends Seeder
+class AdminsDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class AdminsTableSeeder extends Seeder
     {
         $admin = Admin::create([
             'name' => 'Samuel Gerges',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@app.com',
             'password' => bcrypt("sasa"),
         ]);
     }
