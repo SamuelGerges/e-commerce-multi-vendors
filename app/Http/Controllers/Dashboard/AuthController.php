@@ -27,4 +27,18 @@ class AuthController extends Controller
         return redirect()->back()->with(['error' => 'فشل في تسجيل الدخول']);
 
     }
+    public function logout()
+    {
+        try {
+            $guard = $this->getGuard('admin');
+            $guard->logout();
+            return redirect()->route('admin.login');
+        }catch(\Exception $e){
+
+        }
+    }
+
+    private function getGuard($guard){
+        return auth($guard);
+    }
 }
