@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Models\Setting;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,4 +21,11 @@ Route::get('/', function () {
 //Route::get('test', function () {
 //    return Setting::all();
 //});
+
+
+Route::get('test', function () {
+    $category = Category::first();
+    $category->makeVisible('translations');
+    return $category;
+});
 
