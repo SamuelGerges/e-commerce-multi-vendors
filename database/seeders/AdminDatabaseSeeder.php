@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
-class AdminsDatabaseSeeder extends Seeder
+class AdminDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
