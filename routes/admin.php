@@ -34,27 +34,39 @@ Route::group(
         });
         // #######   end of profiles   ########
 
-        // #######  main categories  #######
-        Route::prefix('main_categories')->group(function () {
-            Route::get('/', 'MainCategoriesController@index')->name('admin.index.categories');
-            Route::get('create', 'MainCategoriesController@create')->name('admin.create.categories');
-            Route::post('store', 'MainCategoriesController@store')->name('admin.store.categories');
-            Route::get('edit/{id}', 'MainCategoriesController@edit')->name('admin.edit.categories');
-            Route::put('update/{id}', 'MainCategoriesController@update')->name('admin.update.categories');
-            Route::get('delete/{id}', 'MainCategoriesController@delete')->name('admin.delete.categories');
+        // #######   categories  #######
+        Route::prefix('categories')->group(function () {
+            Route::get('/', 'CategoryController@index')->name('admin.index.categories');
+            Route::get('create', 'CategoryController@create')->name('admin.create.categories');
+            Route::post('store', 'CategoryController@store')->name('admin.store.categories');
+            Route::get('edit/{id}', 'CategoryController@edit')->name('admin.edit.categories');
+            Route::put('update/{id}', 'CategoryController@update')->name('admin.update.categories');
+            Route::get('delete/{id}', 'CategoryController@delete')->name('admin.delete.categories');
         });
-        // #######  end main categories  ######
+        // #######  end  categories  ######
 
-        // #######  sub categories  #######
-        Route::prefix('sub_categories')->group(function () {
-            Route::get('/', 'SubCategoriesController@index')->name('admin.index.subCategories');
-            Route::get('create', 'SubCategoriesController@create')->name('admin.create.subCategories');
-            Route::post('store', 'SubCategoriesController@store')->name('admin.store.subCategories');
-            Route::get('edit/{id}', 'SubCategoriesController@edit')->name('admin.edit.subCategories');
-            Route::put('update/{id}', 'SubCategoriesController@update')->name('admin.update.subCategories');
-            Route::get('delete/{id}', 'SubCategoriesController@delete')->name('admin.delete.subCategories');
+
+        // #######  brands  ######
+        Route::prefix('brands')->group(function () {
+            Route::get('/', 'BrandController@index')->name('admin.index.brands');
+            Route::get('create', 'BrandController@create')->name('admin.create.brands');
+            Route::post('store', 'BrandController@store')->name('admin.store.brands');
+            Route::get('edit/{id}', 'BrandController@edit')->name('admin.edit.brands');
+            Route::put('update/{id}', 'BrandController@update')->name('admin.update.brands');
+            Route::get('delete/{id}', 'BrandController@delete')->name('admin.delete.brands');
         });
-        // #######  end sub categories  ######
+        // #######  end brands  ######
+
+        // #######  tags  ######
+        Route::prefix('tags')->group(function () {
+            Route::get('/', 'TagController@index')->name('admin.index.tags');
+            Route::get('create', 'TagController@create')->name('admin.create.tags');
+            Route::post('store', 'TagController@store')->name('admin.store.tags');
+            Route::get('edit/{id}', 'TagController@edit')->name('admin.edit.tags');
+            Route::put('update/{id}', 'TagController@update')->name('admin.update.tags');
+            Route::get('delete/{id}', 'TagController@delete')->name('admin.delete.tags');
+        });
+        // #######  end tags  ######
 
         // logout
         Route::get('logout', 'AuthController@logout')->name('admin.logout');
