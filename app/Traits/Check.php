@@ -4,6 +4,8 @@ namespace App\Traits;
 
 //use App\Models\$model;
 
+use App\Http\Enumerations\CategoryType;
+
 trait Check
 {
     public function isActive($request, $status)
@@ -16,10 +18,10 @@ trait Check
     }
 
 
-    public function isParent($request,$prent_id)
+    public function isParent($request,$name_input,$parent_id)
     {
-        if($request->type === '1'){
-            $request->request->add([$prent_id => null]);
+        if($request->$name_input == CategoryType::mianCategory){
+            $request->request->add([$parent_id => null]);
         }
     }
     public function check($object, $route, $message,$view)
