@@ -29,7 +29,7 @@ class CategoryController extends Controller
         try {
             DB::beginTransaction();
             $this->isActive($request,'is_active');
-            $this->isParent($request,'parent_id');
+            $this->isParent($request,'type','parent_id');
             $category = Category::create($request->except('_token'));
             $category->name = $request->name;
             $category->save();
@@ -62,7 +62,7 @@ class CategoryController extends Controller
             DB::beginTransaction();
 
             $this->isActive($request,'is_active');
-            $this->isParent($request,'parent_id');
+            $this->isParent($request,'type','parent_id');
 
             $category->update($request->all());
             $category->name = $request->name;
