@@ -29,13 +29,13 @@ class Category extends Model
 
     public function getActive()
     {
-        return  $this->is_active === false ? __('admin/mainCategories/category.not_active') : __('admin/mainCategories/category.active');
+        return  $this->is_active === false ? __('admin/categories/category.not_active') : __('admin/categories/category.active');
 
     }
 
-    public function mainCategory()
+    public function _parent()
     {
-        return $this->belongsTo(self::class,'parent_id');
+        return $this->belongsTo(self::class,'parent_id')->withDefault('Main Category');
     }
 
 }
