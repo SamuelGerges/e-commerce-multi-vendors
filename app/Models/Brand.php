@@ -23,6 +23,15 @@ class Brand extends Model
         return $this->is_active === false ? __('admin/brands/brand.not_active') : __('admin/brands/brand.active');
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_active',1);
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class,'brand_id','id');
+    }
+
     public function getImageAttribute($image)
     {
         return ($image !== null) ? asset('assets/images/brands/' . $image) : '';

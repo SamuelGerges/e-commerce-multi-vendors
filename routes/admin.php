@@ -68,6 +68,25 @@ Route::group(
         });
         // #######  end tags  ######
 
+        // #######  products  ######
+        Route::prefix('products')->group(function () {
+            Route::get('/', 'ProductController@index')->name('admin.index.products');
+            Route::get('general-information', 'ProductController@create')->name('admin.general.create.products');
+            Route::post('store-general-information', 'ProductController@store')->name('admin.general.store.products');
+            Route::get('edit-general-information/{id}', 'ProductController@edit')->name('admin.general.edit.products');
+            Route::put('update-general-information/{id}', 'ProductController@update')->name('admin.general.update.products');
+            Route::get('delete-general-information/{id}', 'ProductController@delete')->name('admin.general.delete.products');
+
+            // price
+            Route::get('price/{id}', 'ProductController@getPrice')->name('admin.price.create.products');
+            Route::patch('price/{id}', 'ProductController@updatePrice')->name('admin.price.update.products');
+
+            // stock
+            Route::get('stock/{id}', 'ProductController@getStock')->name('admin.stock.create.products');
+            Route::patch('stock/{id}', 'ProductController@updateStock')->name('admin.stock.update.products');
+        });
+        // #######  end products  ######
+
         // logout
         Route::get('logout', 'AuthController@logout')->name('admin.logout');
     });

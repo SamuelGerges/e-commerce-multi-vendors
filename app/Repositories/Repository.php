@@ -64,7 +64,6 @@ class Repository implements RepositryInterface
     public function setModel(Model $model): void
     {
         $this->model = $model;
-        return $this;
     }
 
     public function with($relations)

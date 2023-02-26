@@ -45,6 +45,7 @@ class CategoryController extends Controller
     public function edit($main_cat_id)
     {
         $category = Category::find($main_cat_id);
+        return $category->products;
         if (!$category)
             return redirect()->route('admin.index.categories')
                 ->with(['error' => __('admin/categories/category.cat_not_existed')]);

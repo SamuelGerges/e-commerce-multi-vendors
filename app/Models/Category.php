@@ -27,6 +27,10 @@ class Category extends Model
         return $query->whereNotNull('parent_id');
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_active',1);
+    }
     public function getActive()
     {
         return  $this->is_active === false ? __('admin/categories/category.not_active') : __('admin/categories/category.active');
@@ -36,6 +40,11 @@ class Category extends Model
     public function _parent()
     {
         return $this->belongsTo(self::class,'parent_id')->withDefault('Main Category');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class,'product_categories','product_id','category_id');
     }
 
 }

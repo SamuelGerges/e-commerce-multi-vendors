@@ -26,7 +26,6 @@ class BrandRequest extends FormRequest
         return [
             "name" => "required",
             "image" => "required_without:id|image|mimes:jpg,jpeg,png",
-//            "slug" => "required|unique:categories,slug,".$this->id,
         ];
     }
 }

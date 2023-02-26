@@ -18,6 +18,8 @@ return [
     'add_brand' => 'Add Brand',
     'tags' => 'Tags',
     'add_tag' => 'Add Tag',
+    'products' => 'Products',
+    'add_new_product' => 'Add New Product',
 
 
 ];

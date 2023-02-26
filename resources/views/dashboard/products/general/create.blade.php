@@ -8,13 +8,13 @@
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a
-                                        href="">{{ __('admin/categories/category.page_main') }} </a>
+                                        href="">{{ __('admin/products/product.page_main') }} </a>
                                 </li>
                                 <li class="breadcrumb-item"><a
-                                        href="{{route('admin.index.categories')}}"> {{ __('admin/categories/category.categories') }} </a>
+                                        href="{{route('admin.index.products')}}"> {{ __('admin/products/product.products') }} </a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    {{ __('admin/categories/category.add_new_category') }}
+                                    {{ __('admin/products/product.add_new_product') }}
 
                                 </li>
                             </ol>
@@ -30,7 +30,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title"
-                                        id="basic-layout-form"> {{ __('admin/categories/category.add_new_category') }} </h4>
+                                        id="basic-layout-form"> {{ __('admin/products/product.add_new_product') }} </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -47,34 +47,21 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <form class="form"
-                                              action="{{route('admin.store.categories')}}"
+                                              action="{{route('admin.general.store.products')}}"
                                               method="post"
                                               enctype="multipart/form-data">
                                             @csrf
                                             @method('POST')
                                             <div class="form-body">
                                                 <h4 class="form-section"><i
-                                                        class="ft-home"></i> {{ __('admin/categories/category.data_category') }}
+                                                        class="ft-home"></i> {{ __('admin/products/product.data_product') }}
                                                 </h4>
-                                                <div class="form-group">
-                                                    <label for="projectinput1">
-                                                        {{ __('admin/categories/category.image_category') }}
-                                                    </label>
-                                                    <input type="file"
-                                                           class="form-control"
-                                                           placeholder="  "
-                                                           value=""
-                                                           name="image">
-                                                    @error("image")
-                                                    <span class="text-danger"> {{$message}}</span>
-                                                    @enderror
-                                                </div>
 
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1">
-                                                                {{ __('admin/categories/category.name_category') }}
+                                                                {{ __('admin/products/product.name_product') }}
                                                             </label>
                                                             <input type="text"
                                                                    class="form-control"
@@ -89,7 +76,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label
-                                                                for="projectinput1"> {{ __('admin/categories/category.name_by_url') }}</label>
+                                                                for="projectinput1"> {{ __('admin/products/product.name_by_url') }}</label>
                                                             <input type="text" id="name"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -101,24 +88,101 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row hidden" id="cats_list">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">
+                                                                {{ __('admin/products/product.description') }}
+                                                            </label>
+                                                            <textarea type="text"
+                                                                      class="form-control"
+                                                                      placeholder=""
+                                                                      value="{{old('description')}}"
+                                                                      name="description"
+                                                                      id="description">
+                                                            </textarea>
+                                                            @error("description")
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label
+                                                                for="projectinput1"> {{ __('admin/products/product.short_description') }}</label>
+                                                            <textarea type="text" id="name"
+                                                                      class="form-control"
+                                                                      placeholder="  "
+                                                                      value="{{old('short_description')}}"
+                                                                      name="short_description">
+                                                                </textarea>
+                                                            @error("short_description")
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="prjectinput1">
-                                                                {{ __('admin/categories/category.select_main_category') }}
+                                                                {{ __('admin/products/product.select_category') }}
                                                             </label>
-                                                            <select name="parent_id" class="select2 form-control">
+                                                            <select name="categories[]" class="select2 form-control"
+                                                                    multiple>
                                                                 <optgroup
-                                                                    label="{{ __('admin/categories/category.select_category') }} ">
+                                                                    label="{{ __('admin/products/product.select_category') }} ">
                                                                     @if($categories && $categories -> count() > 0)
-                                                                        @foreach($categories as $category)
+                                                                        @foreach($categories as $index => $category)
                                                                             <option
                                                                                 value="{{$category -> id }}">{{$category -> name}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </optgroup>
                                                             </select>
-                                                            @error('parent_id')
+                                                            @error('categories'.$index.'id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="prjectinput1">
+                                                                {{ __('admin/products/product.select_tag') }}
+                                                            </label>
+                                                            <select name="tags[]" class="select2 form-control" multiple>
+                                                                <optgroup
+                                                                    label="{{ __('admin/products/product.select_tag') }} ">
+                                                                    @if($tags && $tags -> count() > 0)
+                                                                        @foreach($tags as $tag)
+                                                                            <option
+                                                                                value="{{$tag -> id }}">{{$tag -> name}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('tags')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="prjectinput1">
+                                                                {{ __('admin/products/product.select_brand') }}
+                                                            </label>
+                                                            <select name="brand_id" class="select2 form-control">
+                                                                <optgroup
+                                                                    label="{{ __('admin/products/product.select_brand') }} ">
+                                                                    @if($brands && $brands -> count() > 0)
+                                                                        @foreach($brands as $brand)
+                                                                            <option
+                                                                                value="{{$brand -> id }}">{{$brand -> name}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('brand_id')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
@@ -128,7 +192,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group mt-1">
                                                             <label for="switcheryColor4" class="card-title ml-1">
-                                                                {{ __('admin/categories/category.status') }}
+                                                                {{ __('admin/products/product.status') }}
                                                             </label>
                                                             <input type="checkbox" value="1"
                                                                    name="is_active"
@@ -141,35 +205,6 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group mt-1">
-                                                            <input type="radio"
-                                                                   name="type"
-                                                                   value="1"
-                                                                   checked
-                                                                   class="switchery" data-color="success"
-                                                            />
-                                                            <label class="card-title ml-1">
-                                                                {{ __('admin/categories/category.main') }}
-                                                            </label>
-                                                        </div>
-                                                        @error("type")
-                                                        <span class="text-danger"> {{$message}}</span>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group mt-1">
-                                                            <input type="radio"
-                                                                   name="type"
-                                                                   value="2"
-                                                                   class="switchery" data-color="success"
-                                                            />
-                                                            <label class="card-title ml-1">
-                                                                {{ __('admin/categories/category.sub') }}
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
                                             </div>
 
@@ -177,10 +212,10 @@
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> {{ __('admin/categories/category.back') }}
+                                                    <i class="ft-x"></i> {{ __('admin/products/product.back') }}
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> {{ __('admin/categories/category.save') }}
+                                                    <i class="la la-check-square-o"></i> {{ __('admin/products/product.save') }}
                                                 </button>
                                             </div>
                                         </form>
