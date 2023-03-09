@@ -27,7 +27,16 @@ class CategoryRequest extends FormRequest
         return [
             "name" => "required",
             "type" => "required|in:1,2",
-            "slug" => "required|unique:categories,slug,".$this->id,
+            "slug" => "required|unique:categories,slug," . $this->id,
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => __('validation.required'),
+            'slug.unique' => __('validation.unique'),
+            'in' => __('validation.in'),
         ];
     }
 }

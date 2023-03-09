@@ -28,4 +28,13 @@ class TagRequest extends FormRequest
             "slug" => "required|unique:tags,slug,".$this->id,
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'required' => __('validation.required'),
+            'slug.unique' => __('validation.unique'),
+
+        ];
+    }
 }

@@ -18,6 +18,16 @@ return [
     'add_brand' => 'Add Brand',
     'tags' => 'Tags',
     'add_tag' => 'Add Tag',
-
-
+    'products' => 'Products',
+    'add_new_product' => 'Add New Product',
+    'attributes' => 'Attributes',
+    'add_new_attribute' => 'Add New Attribute',
+    'add_new_option' => 'Add New Option',
+    'options' => 'Options',
+    'sliders' => 'Sliders',
+    'add_sliders' => 'Add Slider',
+    'roles' => 'Roles',
+    'add_role' => 'Add New Role',
+    'users' => 'Users',
+    'add_user' => 'Add User',
 ];

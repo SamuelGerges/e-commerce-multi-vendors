@@ -15,17 +15,33 @@ use App\Models\Setting;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('site', function () {
+    return view('front.home');
 });
 //Route::get('test', function () {
 //    return Setting::all();
 //});
 
-
-Route::get('test', function () {
-    $category = Category::first();
-    $category->makeVisible('translations');
-    return $category;
+Route::get('/', function () {
+    return view('front.home');
 });
 
+
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

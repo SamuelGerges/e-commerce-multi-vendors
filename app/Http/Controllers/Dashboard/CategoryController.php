@@ -45,6 +45,7 @@ class CategoryController extends Controller
     public function edit($main_cat_id)
     {
         $category = Category::find($main_cat_id);
+//        return $category->products;
         if (!$category)
             return redirect()->route('admin.index.categories')
                 ->with(['error' => __('admin/categories/category.cat_not_existed')]);
@@ -83,9 +84,12 @@ class CategoryController extends Controller
             if (!$category)
                 return redirect()->route('admin.index.categories')
                     ->with(['error' => __('admin/categories/category.cat_not_existed')]);
+            DB::beginTransaction();
             $category->delete();
+            DB::commit();
             return redirect()->route('admin.index.categories')->with(['success' => __('admin/categories/category.deleted')]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->route('admin.index.categories')->with(['error' => __('admin/categories/category.error')]);
 
         }

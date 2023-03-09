@@ -5,6 +5,7 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Brand extends Model
 {
@@ -21,6 +22,24 @@ class Brand extends Model
     public function getActive()
     {
         return $this->is_active === false ? __('admin/brands/brand.not_active') : __('admin/brands/brand.active');
+    }
+
+    public function getImage($id)
+    {
+        $image = DB::table('brands')
+            ->select('image')
+            ->where('id', '=', $id)->first();
+        return 'images/brands/' . $image->image;
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'brand_id', 'id');
     }
 
     public function getImageAttribute($image)
