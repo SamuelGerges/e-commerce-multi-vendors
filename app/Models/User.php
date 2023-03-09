@@ -14,7 +14,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
-        'email',
+        'mobile',
         'password',
     ];
 
@@ -24,8 +24,17 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function codes()
+    {
+        return $this->hasMany(VerificationCode::class,'user_id');
+    }
+    public function wishlist()
+    {
+        return $this->belongsToMany(Product::class, 'wishlists')->withTimestamps();
+    }
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function wishlistHasThisProduct($product_id)
+    {
+        return self::wishlist()->where('product_id',$product_id)->exists();
+    }
 }

@@ -52,6 +52,11 @@ return [
     'unavailable' => 'غير متاح',
     'in_stock' => 'حالة المنتج',
     'quantity' => 'الكمية',
+    'images' => 'الصور',
+    'images_of_product' => 'صور المنتج',
+    'text_label' => 'يمكنك رفع اكثر من صوره هنا',
+
+
 
 
 

@@ -52,6 +52,10 @@ return [
     'unavailable' => 'Unavailable',
     'in_stock' => 'in Stock',
     'quantity' => 'Quantity',
+    'images' => 'Images',
+    'images_of_product' => 'Images of Products',
+    'text_label' => 'You can Upload multiple Images',
+
 
 
 

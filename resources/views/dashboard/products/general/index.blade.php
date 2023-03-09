@@ -82,6 +82,10 @@
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">
                                                                     {{ __('admin/products/product.stock') }}
                                                                 </a>
+                                                                <a href="{{route('admin.images.create.products',$product->id)}}"
+                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                    {{ __('admin/products/product.images') }}
+                                                                </a>
                                                                 <a href="{{route('admin.general.delete.products',$product->id)}}"
                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
                                                                     {{ __('admin/products/product.delete') }}

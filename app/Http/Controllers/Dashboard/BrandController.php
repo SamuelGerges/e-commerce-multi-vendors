@@ -8,10 +8,11 @@ use App\Models\Brand;
 use App\Traits\Check;
 use App\Traits\Upload;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
-    use Upload,Check;
+    use Upload, Check;
 
     public function index()
     {
@@ -30,10 +31,10 @@ class BrandController extends Controller
             DB::beginTransaction();
 
             $this->isActive($request, 'is_active');
-
             $fileName = '';
             if ($request->has('image')) {
                 $fileName = $this->uploadImage($request->image, 'brands');
+
             }
             $brand = Brand::create($request->except('_token', 'image'));
             $brand->name = $request->name;
@@ -56,6 +57,7 @@ class BrandController extends Controller
                 ->with(['error' => __('admin/brands/brand.brand_not_existed')]);
         return view('dashboard.brands.edit', compact('brand'));
     }
+
     public function update($id, BrandRequest $request)
     {
         try {
@@ -67,16 +69,20 @@ class BrandController extends Controller
             DB::beginTransaction();
 
             $this->isActive($request, 'is_active');
-
             $fileName = '';
             if ($request->has('image')) {
-                unlink($brand->image);
+                try {
+                    Storage::disk('assets')->delete($brand->getImage($brand->id));
+//                    unlink(public_path('assets/'.$brand->getImage($brand->id)));
+                } catch (\Exception $e) {
+
+                }
                 $fileName = $this->uploadImage($request->image, 'brands');
                 $brand->update([
                     'image' => $fileName
                 ]);
             }
-            $brand->update($request->except('_token','image'));
+            $brand->update($request->except('_token', '_method', 'image'));
 
             $brand->name = $request->name;
             $brand->save();
@@ -88,17 +94,26 @@ class BrandController extends Controller
 
         }
     }
+
     public function delete($id)
     {
         try {
+            DB::beginTransaction();
             $brand = Brand::find($id);
             if (!$brand)
                 return redirect()->route('admin.index.brands')
                     ->with(['error' => __('admin/brands/brand.brand_not_existed')]);
-            unlink($brand->image);
+            try {
+                Storage::disk('assets')->delete($brand->getImage($brand->id));
+            } catch (\Exception $e) {
+
+            }
+            $brand->translations()->delete();
             $brand->delete();
+            DB::commit();
             return redirect()->route('admin.index.brands')->with(['success' => __('admin/brands/brand.deleted')]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->route('admin.index.brands')->with(['error' => __('admin/brands/brand.error')]);
 
         }

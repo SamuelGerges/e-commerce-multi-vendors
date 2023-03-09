@@ -56,19 +56,7 @@
                                                 <h4 class="form-section"><i
                                                         class="ft-home"></i> {{ __('admin/categories/category.data_category') }}
                                                 </h4>
-                                                <div class="form-group">
-                                                    <label for="projectinput1">
-                                                        {{ __('admin/categories/category.image_category') }}
-                                                    </label>
-                                                    <input type="file"
-                                                           class="form-control"
-                                                           placeholder="  "
-                                                           value=""
-                                                           name="image">
-                                                    @error("image")
-                                                    <span class="text-danger"> {{$message}}</span>
-                                                    @enderror
-                                                </div>
+
 
                                                 <div class="row">
                                                     <div class="col-md-6">

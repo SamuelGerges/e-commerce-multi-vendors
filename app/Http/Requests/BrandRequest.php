@@ -28,4 +28,13 @@ class BrandRequest extends FormRequest
             "image" => "required_without:id|image|mimes:jpg,jpeg,png",
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'required' => __('validation.required'),
+            'images' => __('validation.image'),
+            'mimes' => __('validation.mimes'),
+        ];
+    }
 }

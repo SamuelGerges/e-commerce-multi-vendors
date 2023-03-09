@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImagesProductRequest;
 use App\Http\Requests\StockProductRequest;
 use App\Http\Requests\StockRequest;
 use App\Http\Requests\GeneralProductRequest;
@@ -12,12 +13,13 @@ use App\Models\Product;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Traits\Check;
+use App\Traits\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    use Check;
+    use Check,Upload;
 
     public function index()
     {
@@ -53,10 +55,10 @@ class ProductController extends Controller
             $product->tags()->attach($request->tags);
 
             DB::commit();
-            return redirect()->route('admin.index.categories')->with(['success' => __('admin/categories/category.created')]);
+            return redirect()->route('admin.index.products')->with(['success' => __('admin/products/product.created')]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.index.categories')->with(['error' => __('admin/categories/category.error')]);
+            return redirect()->route('admin.index.products')->with(['error' => __('admin/products/product.error')]);
 
         }
     }
@@ -141,6 +143,45 @@ class ProductController extends Controller
 
         }
     }
+
+
+    // upload images
+    public function addImages($id)
+    {
+        return view('dashboard.products.images.create', compact('id'));
+    }
+
+    public function saveProductImages(Request $request)
+    {
+        $file = $request->file('images');
+        $filename = $this->uploadImage($file,'products');
+
+        return response()->json([
+            'name' => $filename,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+
+    }
+    public function updateImages(ImagesProductRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            return $request;
+             dd('$fiels');
+            Product::whereId($request->product_id)->update($request->except('_token', '_method', 'product_id'));
+            DB::commit();
+            return redirect()->route('admin.index.products')->with(['success' => __('admin/products/product.updated')]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.index.products')->with(['error' => __('admin/products/product.error')]);
+
+        }
+    }
+
+
+
+
+
 
     public function delete($id)
     {

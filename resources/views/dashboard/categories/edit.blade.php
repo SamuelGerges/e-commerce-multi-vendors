@@ -54,14 +54,6 @@
                                             @method('PUT')
 
                                             <input name="id" value="{{$category -> id}}" type="hidden">
-                                            <div class="form-group">
-                                                <div class="text-center">
-                                                    <img
-                                                        src=""
-                                                        class="rounded-circle height-150"
-                                                        alt="{{__('admin/categories/category.alt')}}">
-                                                </div>
-                                            </div>
                                             <div class="form-body">
                                                 <h4 class="form-section"><i
                                                         class="ft-home"></i> {{ __('admin/categories/category.data_category') }}
